@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import HomeFeed from './components/HomeFeed'
 import Notifications from './components/Notifications'
 import Bookmarks from './components/Bookmarks'
 import TweetDetails from './components/TweetDetails'
 import Profile from './components/Profile'
+import {CurrentUserContext} from './components/CurrentUserContext'
 // import Sidebar from '.components/Sidebar'
 import {
   BrowserRouter as Router,
@@ -15,11 +16,11 @@ import {
 } from "react-router-dom";
 import Sidebar from './components/Sidebar'
 
-
 function App() {
+  const {currentUser, status} = useContext(CurrentUserContext)
   return (
    <BrowserRouter>
-
+    {status == 'idle' ?
     <Main>
       <Sidebar/>
       <Switch>
@@ -39,7 +40,7 @@ function App() {
           <Profile/>
         </Route>
       </Switch>
-    </Main>
+    </Main> : <div> Loading...</div>} 
    </BrowserRouter>
   );
 }
