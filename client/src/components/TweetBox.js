@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import styled from 'styled-components'
+import {CurrentUserContext} from './CurrentUserContext'
+
 
 export const TweetBox = () => {
   const [userProfileData, setUserProfileData] = useState()
   const [loading, setLoading] = useState(true)
-  console.log(userProfileData)
+
+  const {currentUser} = useContext(CurrentUserContext)
   useEffect(async() => {
-    const responseHeaders = await fetch('/api/me/profile')
-    const responseBody = await responseHeaders.json()
-    setUserProfileData(responseBody)
+    setUserProfileData(currentUser)
   }, [])
 
   useEffect(() => {

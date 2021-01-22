@@ -5,6 +5,7 @@ export const CurrentUserContext = createContext({})
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [status, setStatus] = useState("loading");
+  console.log(currentUser)
 
   useEffect(async () => {
       const responseHeaders = await fetch('/api/me/profile')
