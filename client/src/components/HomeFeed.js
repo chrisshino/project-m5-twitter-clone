@@ -18,6 +18,7 @@ function HomeFeed() {
     if (homeInfo){
       setLoading(false)
     }
+    console.log(Date.now())
   },[homeInfo])
   if (loading) {
     return (<div>loading...</div>)
