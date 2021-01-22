@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {TweetHolder} from './TweetHolder'
+import {Header} from '../components/Header'
+import {TweetBox} from '../components/TweetBox'
 
 function HomeFeed() {
   const [homeInfo, setHomeInfo] = useState()
@@ -18,14 +20,16 @@ function HomeFeed() {
     if (homeInfo){
       setLoading(false)
     }
-    console.log(Date.now())
   },[homeInfo])
   if (loading) {
+    // add loading spinner here...
     return (<div>loading...</div>)
   }
   return (
     <div>
       <Wrapper>
+        <Header/>
+        <TweetBox/>
         {homeInfo.tweetIds.map((tweetID) => {
           return <TweetHolder tweetId={tweetID} homeInfo={homeInfo}></TweetHolder>
         })}
@@ -35,7 +39,7 @@ function HomeFeed() {
 }
 
 const Wrapper = styled.div`
-
+width: 85%;
 `;
 
 

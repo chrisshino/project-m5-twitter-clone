@@ -57,7 +57,8 @@ const Text = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* width: 20vw; */
+  padding-left: 4rem;
+  padding-right: 2rem;
 `;
 
 const StyledNavLink = styled(NavLink)`

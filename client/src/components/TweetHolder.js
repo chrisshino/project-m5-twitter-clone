@@ -11,7 +11,7 @@ export function TweetHolder({ tweetId, homeInfo }) {
   const dateInfo = new Date(tweetInfo.timestamp);
   const formattedDate = format(dateInfo, "MMM-do");
   const status = tweetInfo.status;
-  console.log(tweetInfo)
+  
 
   return (
     <>
@@ -19,42 +19,62 @@ export function TweetHolder({ tweetId, homeInfo }) {
       {tweetInfo.author.handle === 'giantcat9' ?
        <ProfilePic src={url}/> : <ProfilePic src={tweetInfo.author.avatarSrc} />
       }
-      {/* <ProfilePic src={tweetInfo.author.avatarSrc} /> */}
+      <RightSideContainer>
       <NameUserDate>
         <AvatarName>{tweetInfo.author.displayName}</AvatarName>
         <AvatarUserHandle>@{tweetInfo.author.handle}</AvatarUserHandle>
         <DateComponent>- {formattedDate}</DateComponent>
       </NameUserDate>
-    </TweetContainer>
       <UsernameTweetContainer>
         <Status>{status}</Status>
       {tweetInfo.media.length > 0 ? <PostImage src={tweetInfo.media[0].url}/> : ''}
       </UsernameTweetContainer>
       <ReactionBar>
-        {FiMessageCircle}
+        <FiMessageCircle/>
+        <FiRepeat/>
+        <FiHeart/>
+        <FiDownload/>
       </ReactionBar>
+        
+        </RightSideContainer>
+    </TweetContainer>
     </>
   );
 }
 
+const RightSideContainer = styled.div`
+  
+`;
+
 const ReactionBar = styled.div`
 display: flex;
 margin-top: 0.5rem;
-margin-bottom: 0.5rem;
+margin-bottom: 0.2rem;
+font-size: 1.3rem;
+padding-right: 1rem;
+justify-content: space-between;
 `;
 
 const PostImage = styled.img`
   display: block;
+  border-radius: 10px;
+  width: 100%;
+  max-height:600px;
 `;
 
 const UsernameTweetContainer = styled.div`
   display: block;
 `;
 
-const Status = styled.div``;
+const Status = styled.div`
+  margin-bottom: 0.5rem;
+`;
 
 const TweetContainer = styled.div`
   display: flex;
+  padding: 1rem;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
 `;
 
 const DateComponent = styled.div`
@@ -82,4 +102,5 @@ const ProfilePic = styled.img`
 
 const NameUserDate = styled.div`
   display: flex;
+  margin-bottom: 0.5rem;
 `;

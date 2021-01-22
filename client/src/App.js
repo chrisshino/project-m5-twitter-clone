@@ -6,6 +6,7 @@ import Bookmarks from './components/Bookmarks'
 import TweetDetails from './components/TweetDetails'
 import Profile from './components/Profile'
 import {CurrentUserContext} from './components/CurrentUserContext'
+
 // import Sidebar from '.components/Sidebar'
 import {
   BrowserRouter as Router,
