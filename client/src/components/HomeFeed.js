@@ -28,7 +28,7 @@ function HomeFeed() {
   return (
     <div>
       <Wrapper>
-        <Header/>
+        <Header title={'Home'}/>
         <TweetBox/>
         {homeInfo.tweetIds.map((tweetID) => {
           return <TweetHolder tweetId={tweetID} homeInfo={homeInfo}></TweetHolder>
