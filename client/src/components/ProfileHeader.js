@@ -1,21 +1,25 @@
-import React, {useState, useEffect, useParams} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 import styled from 'styled-components'
 
 function ProfileHeader() {
   const {profileId} = useParams()
   const [profileInfo, setProfileInfo] = useState()
-  console.log(ProfileInfo)
+  console.log(profileInfo)
+  const [load, setLoad] = useState(true)
   useEffect(async() => {
-    const fetchedData = await fetch(`/api/${profileId}/profile`)
-    setProfileInfo(fetchedData)
+    const fetchedDataHeader = await fetch(`/api/${profileId}/profile`)
+    const responseDataBody = await fetchedDataHeader.json()
+    setProfileInfo(responseDataBody)
+    setLoad(false)
   }, [])
 
-  if (!profileInfo) {
+  if (load == true) {
     return <div>loading...</div>
   }
   return (
     <div>
-      <ProfileBanner src={profileInfo.profile.bannerSrc}/>
+      {/* <ProfileBanner src={profileInfo.profile.bannerSrc}/> */}
     </div>
   )
 }
