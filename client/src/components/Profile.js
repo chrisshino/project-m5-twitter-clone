@@ -1,9 +1,11 @@
 import React from 'react'
-
+import ProfileHeader from './ProfileHeader'
 function Profile() {
   return (
     <div>
-      Profile
+      <ProfileHeader>
+
+      </ProfileHeader>
     </div>
   )
 }

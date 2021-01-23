@@ -7,9 +7,11 @@ export const TweetBox = () => {
   const [userProfileData, setUserProfileData] = useState()
   const [loading, setLoading] = useState(true)
 
-  const {currentUser} = useContext(CurrentUserContext)
+  const {status, currentUser} = useContext(CurrentUserContext)
+
   useEffect(async() => {
     setUserProfileData(currentUser)
+    setLoading(false)
   }, [])
 
   useEffect(() => {

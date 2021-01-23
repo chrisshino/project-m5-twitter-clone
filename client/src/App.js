@@ -34,10 +34,10 @@ function App() {
         <Route exact path ='/bookmarks'>
           <Bookmarks/>
         </Route>
-        <Route exact path = '/tweet/:tweetId'>
+        <Route path = '/tweet/:tweetId'>
           <TweetDetails/>
         </Route>
-        <Route exact path='/:profileId'>
+        <Route path='/:profileId'>
           <Profile/>
         </Route>
       </Switch>
