@@ -19,10 +19,12 @@ function ProfileHeader() {
   }
   return (
     <div>
-      {/* <ProfileBanner src={profileInfo.profile.bannerSrc}/> */}
+      <ProfileBanner src={profileInfo.profile.bannerSrc}/>
     </div>
   )
 }
+
+
 
 const ProfileBanner = styled.img`
   width: 100%;
