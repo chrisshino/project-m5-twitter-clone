@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components'
 import {COLORS} from '../constants'
+import {format} from 'date-fns'
 
 function ProfileHeader() {
   const {profileId} = useParams()
   const [profileInfo, setProfileInfo] = useState()
-  console.log(profileInfo)
   const [load, setLoad] = useState(true)
+  const formattedDateInfo = new Date(profileInfo.profile.joined)
+  const formattedJoinDate = format(formattedDateInfo, 'MMMM-YYY')
+  console.log(formattedJoinDate)
   useEffect(async() => {
     const fetchedDataHeader = await fetch(`/api/${profileId}/profile`)
     const responseDataBody = await fetchedDataHeader.json()
@@ -36,7 +39,7 @@ function ProfileHeader() {
         <p>{profileInfo.profile.bio}</p>
         <CityAreaContainer>
           <CityContainer>{profileInfo.profile.location}</CityContainer>
-          <JoinedDate>{profileInfo.profile.joined}</JoinedDate>
+          <JoinedDate>Joined {formattedJoinDate}</JoinedDate>
         </CityAreaContainer>
         <FollowerContainer>
           <Following>{profileInfo.profile.numFollowing} Following</Following>
