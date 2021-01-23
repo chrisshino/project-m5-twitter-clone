@@ -6,15 +6,16 @@ import {format} from 'date-fns'
 
 function ProfileHeader() {
   const {profileId} = useParams()
-  const [profileInfo, setProfileInfo] = useState()
+  const [profileInfo, setProfileInfo] = useState({})
+  const [dateInfo, setDateInfo] = useState('')
   const [load, setLoad] = useState(true)
-  const formattedDateInfo = new Date(profileInfo.profile.joined)
-  const formattedJoinDate = format(formattedDateInfo, 'MMMM-YYY')
-  console.log(formattedJoinDate)
   useEffect(async() => {
     const fetchedDataHeader = await fetch(`/api/${profileId}/profile`)
     const responseDataBody = await fetchedDataHeader.json()
     setProfileInfo(responseDataBody)
+    const formattedDateInfo = new Date(responseDataBody.profile.joined)
+    const formattedJoinDate = format(formattedDateInfo, 'MMMM-YYY')
+    setDateInfo(formattedJoinDate)
     setLoad(false)
   }, [])
 
@@ -22,7 +23,7 @@ function ProfileHeader() {
     return <div>loading...</div>
   }
   return (
-    <div>
+    <FullContainer>
       <BannerProfileButtonContainer>
         <ProfileBanner src={profileInfo.profile.bannerSrc}/>
         <ProfileImageLarge src={profileInfo.profile.avatarSrc}/>
@@ -39,16 +40,39 @@ function ProfileHeader() {
         <p>{profileInfo.profile.bio}</p>
         <CityAreaContainer>
           <CityContainer>{profileInfo.profile.location}</CityContainer>
-          <JoinedDate>Joined {formattedJoinDate}</JoinedDate>
+          <JoinedDate>Joined {dateInfo}</JoinedDate>
         </CityAreaContainer>
         <FollowerContainer>
           <Following>{profileInfo.profile.numFollowing} Following</Following>
           <Followers>{profileInfo.profile.numFollowers} Followers</Followers>
         </FollowerContainer>
       </UserInfoContainer>
-    </div>
+      <TweetsMediaLikesContainer>
+        <MiniNav>Tweets</MiniNav>
+        <MiniNav>Media</MiniNav>
+        <MiniNav>Likes</MiniNav>
+      </TweetsMediaLikesContainer>
+    </FullContainer>
   )
 }
+
+const MiniNav = styled.div`
+  padding: 1.5rem;
+  color: ${COLORS.primary};
+  font-size: 1rem;
+  font-weight: bolder;
+  font-family: sans-serif;
+
+`;
+
+const TweetsMediaLikesContainer = styled.div`
+  display:flex;
+  justify-content: space-around;
+`;
+
+const FullContainer = styled.div`
+border: 1px solid whitesmoke;
+`;
 
 const Following = styled.div`
   /* color: grey; */
