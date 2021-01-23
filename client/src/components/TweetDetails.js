@@ -3,7 +3,7 @@ import {Header} from './Header'
 import styled from 'styled-components'
 import {useParams} from 'react-router-dom'
 import {format} from 'date-fns'
-
+import {FiMessageCircle, FiRepeat, FiHeart, FiDownload} from 'react-icons/fi'
 
 function TweetDetails() {
   const {tweetId} = useParams()
@@ -43,6 +43,12 @@ function TweetDetails() {
         <FullDateWrapper>
           {formattedTweetDate} Critter web app
         </FullDateWrapper>
+        <TweetReactionBar>
+          <FiMessageCircle/>
+          <FiRepeat/>
+          <FiHeart/>
+          <FiDownload/>
+        </TweetReactionBar>
       </TweetWrapper>
 
     </SingleTweetContainer>
@@ -90,10 +96,10 @@ color: grey;
 font-size: 0.8rem;
 `;
 const TweetReactionBar = styled.div`
+border-top: 1px solid whitesmoke;
+padding: 1rem;
 display: flex;
-margin-top: 0.5rem;
-margin-bottom: 0.2rem;
-font-size: 1.3rem;
+color: grey;
 padding-right: 1rem;
 justify-content: space-between;
 `;
