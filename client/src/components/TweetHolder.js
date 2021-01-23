@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {format } from "date-fns";
-import {url} from '../assets/lordcat'
-import {FiMessageCircle, FiRepeat, FiHeart, FiDownload} from 'react-icons/fi'
-
+import { format } from "date-fns";
+import { url } from "../assets/lordcat";
+import { FiMessageCircle, FiRepeat, FiHeart, FiDownload } from "react-icons/fi";
 
 export function TweetHolder({ tweetId, homeInfo }) {
   // console.log(homeInfo.tweetsById[tweetId]);
@@ -11,55 +10,68 @@ export function TweetHolder({ tweetId, homeInfo }) {
   const dateInfo = new Date(tweetInfo.timestamp);
   const formattedDate = format(dateInfo, "MMM-do");
   const status = tweetInfo.status;
-  
+  const [isLikedButton, setIsLikedButton] = useState()
+
+
+  const addHomeLike = () => {
+    
+  }
 
   return (
     <>
-    <TweetContainer>
-      {tweetInfo.author.handle === 'giantcat9' ?
-       <ProfilePic src={url}/> : <ProfilePic src={tweetInfo.author.avatarSrc} />
-      }
-      <RightSideContainer>
-      <NameUserDate>
-        <AvatarName>{tweetInfo.author.displayName}</AvatarName>
-        <AvatarUserHandle>@{tweetInfo.author.handle}</AvatarUserHandle>
-        <DateComponent>- {formattedDate}</DateComponent>
-      </NameUserDate>
-      <UsernameTweetContainer>
-        <Status>{status}</Status>
-      {tweetInfo.media.length > 0 ? <PostImage src={tweetInfo.media[0].url}/> : ''}
-      </UsernameTweetContainer>
-      <ReactionBar>
-        <FiMessageCircle/>
-        <FiRepeat/>
-        <FiHeart/>
-        <FiDownload/>
-      </ReactionBar>
-        
+      <TweetContainer>
+        {tweetInfo.author.handle === "giantcat9" ? (
+          <ProfilePic src={url} />
+        ) : (
+          <ProfilePic src={tweetInfo.author.avatarSrc} />
+        )}
+        <RightSideContainer>
+          <NameUserDate>
+            <AvatarName>{tweetInfo.author.displayName}</AvatarName>
+            <AvatarUserHandle>@{tweetInfo.author.handle}</AvatarUserHandle>
+            <DateComponent>- {formattedDate}</DateComponent>
+          </NameUserDate>
+          <UsernameTweetContainer>
+            <Status>{status}</Status>
+            {tweetInfo.media.length > 0 ? (
+              <PostImage src={tweetInfo.media[0].url} />
+            ) : (
+              ""
+            )}
+          </UsernameTweetContainer>
+          <ReactionBar>
+            <FiMessageCircle />
+            <FiRepeat />
+            <HomeLikeButton onClick={()=>{}}>
+              <FiHeart />
+              {isLikedButton == true ? <div>1</div> : null}
+            </HomeLikeButton>
+            <FiDownload />
+          </ReactionBar>
         </RightSideContainer>
-    </TweetContainer>
+      </TweetContainer>
     </>
   );
 }
 
-const RightSideContainer = styled.div`
-  
-`;
+const HomeLikeButton = styled.button``;
+
+const RightSideContainer = styled.div``;
 
 const ReactionBar = styled.div`
-display: flex;
-margin-top: 0.5rem;
-margin-bottom: 0.2rem;
-font-size: 1.3rem;
-padding-right: 1rem;
-justify-content: space-between;
+  display: flex;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+  font-size: 1.3rem;
+  padding-right: 1rem;
+  justify-content: space-between;
 `;
 
 const PostImage = styled.img`
   display: block;
   border-radius: 10px;
   width: 100%;
-  max-height:600px;
+  max-height: 600px;
 `;
 
 const UsernameTweetContainer = styled.div`

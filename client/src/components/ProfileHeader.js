@@ -9,6 +9,7 @@ function ProfileHeader() {
   const [profileInfo, setProfileInfo] = useState({})
   const [dateInfo, setDateInfo] = useState('')
   const [load, setLoad] = useState(true)
+  
   useEffect(async() => {
     const fetchedDataHeader = await fetch(`/api/${profileId}/profile`)
     const responseDataBody = await fetchedDataHeader.json()

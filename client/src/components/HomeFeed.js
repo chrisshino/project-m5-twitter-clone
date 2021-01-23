@@ -7,12 +7,16 @@ import {TweetBox} from '../components/TweetBox'
 function HomeFeed() {
   const [homeInfo, setHomeInfo] = useState()
   const [loading, setLoading] = useState(true)
-
+  // create function with current if block
+  // pass to tweet holder
+  const getHomeFeed = async() => {
+    const responseHeaders = await fetch('/api/me/home-feed')
+    const responseBody = await responseHeaders.json()
+    setHomeInfo(responseBody)
+  }
   useEffect(async()=> {
     if (!homeInfo) {
-      const responseHeaders = await fetch('/api/me/home-feed')
-      const responseBody = await responseHeaders.json()
-      setHomeInfo(responseBody)
+      getHomeFeed()
     }
   }, [])
 
@@ -29,7 +33,7 @@ function HomeFeed() {
     <div>
       <Wrapper>
         <Header title={'Home'}/>
-        <TweetBox/>
+        <TweetBox getHomeFeed={getHomeFeed}/>
         {homeInfo.tweetIds.map((tweetID) => {
           return <TweetHolder tweetId={tweetID} homeInfo={homeInfo}></TweetHolder>
         })}
