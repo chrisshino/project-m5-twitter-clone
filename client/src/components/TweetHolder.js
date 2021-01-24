@@ -11,11 +11,23 @@ export function TweetHolder({ tweetId, homeInfo }) {
   const formattedDate = format(dateInfo, "MMM-do");
   const status = tweetInfo.status;
   const [isLikedButton, setIsLikedButton] = useState()
+  console.log(isLikedButton)
+  console.log(tweetInfo)
 
 
   const addHomeLike = () => {
-    
+    fetch(`/api/tweet/${tweetId}/like`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ like: !isLikedButton }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setIsLikedButton(!isLikedButton); 
+      });
   }
+
+  
 
   return (
     <>
@@ -42,7 +54,7 @@ export function TweetHolder({ tweetId, homeInfo }) {
           <ReactionBar>
             <FiMessageCircle />
             <FiRepeat />
-            <HomeLikeButton onClick={()=>{}}>
+            <HomeLikeButton onClick={(addHomeLike)}>
               <FiHeart />
               {isLikedButton == true ? <div>1</div> : null}
             </HomeLikeButton>
