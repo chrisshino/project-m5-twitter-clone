@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { url } from "../assets/lordcat";
 import { format } from "date-fns";
+import {FiLoader} from 'react-icons/fi'
 
 function ProfileFeed() {
   const { profileId } = useParams();
@@ -17,7 +18,7 @@ function ProfileFeed() {
   }, []);
 
   if (!tweetFeedInfo) {
-    return <div>loading...</div>;
+    return <FiLoader></FiLoader>
   }
 
   return (

@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import styled from 'styled-components'
 import {COLORS} from '../constants'
 import {format} from 'date-fns'
+import {FiLoader} from 'react-icons/fi'
 
 function ProfileHeader() {
   const {profileId} = useParams()
@@ -21,7 +22,7 @@ function ProfileHeader() {
   }, [])
 
   if (load == true) {
-    return <div>loading...</div>
+    return <FiLoader></FiLoader>
   }
   return (
     <FullContainer>

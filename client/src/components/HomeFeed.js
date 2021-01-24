@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import {TweetHolder} from './TweetHolder'
 import {Header} from '../components/Header'
 import {TweetBox} from '../components/TweetBox'
+import {FiLoader} from 'react-icons/fi'
+import Rotate from './Rotate'
 
 function HomeFeed() {
   const [homeInfo, setHomeInfo] = useState()
@@ -27,7 +29,11 @@ function HomeFeed() {
   },[homeInfo])
   if (loading) {
     // add loading spinner here...
-    return (<div>loading...</div>)
+    return (
+    <Rotate>
+      <FiLoader></FiLoader>
+    </Rotate>
+    )
   }
   return (
     <div>

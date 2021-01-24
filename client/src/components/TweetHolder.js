@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { format } from "date-fns";
 import { url } from "../assets/lordcat";
 import { FiMessageCircle, FiRepeat, FiHeart, FiDownload } from "react-icons/fi";
+import { Link, useHistory } from "react-router-dom";
 
 export function TweetHolder({ tweetId, homeInfo }) {
   // console.log(homeInfo.tweetsById[tweetId]);
@@ -11,11 +12,22 @@ export function TweetHolder({ tweetId, homeInfo }) {
   const formattedDate = format(dateInfo, "MMM-do");
   const status = tweetInfo.status;
   const [isLikedButton, setIsLikedButton] = useState()
-  console.log(isLikedButton)
   console.log(tweetInfo)
+  let history = useHistory()
+
+  function tweetInfoOnClick(){
+      history.push(`/tweet/${tweetId}`)
+    }
+  
+
+  const profileOnClick = (event) => {
+    event.stopPropagation()
+    history.push(`/${tweetInfo.author.handle}`)
+  }
 
 
-  const addHomeLike = () => {
+  const addHomeLike = (event) => {
+    event.stopPropagation()
     fetch(`/api/tweet/${tweetId}/like`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -27,18 +39,18 @@ export function TweetHolder({ tweetId, homeInfo }) {
       });
   }
 
-  
+
 
   return (
     <>
-      <TweetContainer>
+      <TweetContainer tabIndex={0} onClick={(tweetInfoOnClick)}>
         {tweetInfo.author.handle === "giantcat9" ? (
           <ProfilePic src={url} />
         ) : (
           <ProfilePic src={tweetInfo.author.avatarSrc} />
         )}
         <RightSideContainer>
-          <NameUserDate>
+          <NameUserDate onClick={profileOnClick}>
             <AvatarName>{tweetInfo.author.displayName}</AvatarName>
             <AvatarUserHandle>@{tweetInfo.author.handle}</AvatarUserHandle>
             <DateComponent>- {formattedDate}</DateComponent>
@@ -66,17 +78,26 @@ export function TweetHolder({ tweetId, homeInfo }) {
   );
 }
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 const HomeLikeButton = styled.button``;
 
-const RightSideContainer = styled.div``;
+const RightSideContainer = styled.div`
+width: 100%;
+`;
 
 const ReactionBar = styled.div`
+width: 100%;
   display: flex;
   margin-top: 0.5rem;
   margin-bottom: 0.2rem;
   font-size: 1.3rem;
   padding-right: 1rem;
   justify-content: space-between;
+  color: grey;
 `;
 
 const PostImage = styled.img`

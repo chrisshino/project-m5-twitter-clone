@@ -6,6 +6,8 @@ import Bookmarks from './components/Bookmarks'
 import TweetDetails from './components/TweetDetails'
 import Profile from './components/Profile'
 import {CurrentUserContext} from './components/CurrentUserContext'
+import {FiLoader} from 'react-icons/fi'
+import Rotate from './components/Rotate'
 
 // import Sidebar from '.components/Sidebar'
 import {
@@ -17,8 +19,11 @@ import {
 } from "react-router-dom";
 import Sidebar from './components/Sidebar'
 
+
 function App() {
   const {currentUser, status} = useContext(CurrentUserContext)
+
+  
   return (
    <BrowserRouter>
     {status == 'idle' ?
@@ -41,7 +46,11 @@ function App() {
           <Profile/>
         </Route>
       </Switch>
-    </Main> : <div> Loading...</div>} 
+    </Main> :
+    <Rotate>
+      <FiLoader  />
+    </Rotate>
+    } 
    </BrowserRouter>
   );
 }

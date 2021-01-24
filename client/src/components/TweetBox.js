@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { COLORS } from "../constants";
+import {FiLoader} from 'react-icons/fi'
+import Rotate from './Rotate'
 
 export const TweetBox = ({getHomeFeed}) => {
   const [userProfileData, setUserProfileData] = useState();
@@ -9,6 +11,7 @@ export const TweetBox = ({getHomeFeed}) => {
   const [value, setValue] = useState('')
   const { status, currentUser } = useContext(CurrentUserContext);
   const [postLoading, setPostLoading] = useState(false)
+  
 
   useEffect(async () => {
     setUserProfileData(currentUser);
@@ -23,7 +26,9 @@ export const TweetBox = ({getHomeFeed}) => {
   if (loading) {
     return (
       // add loading spinners...
-      <div>loading...</div>
+      <Rotate>
+        <FiLoader/>
+      </Rotate>
     );
   }
   return (
@@ -49,16 +54,30 @@ export const TweetBox = ({getHomeFeed}) => {
           }}
           placeholder={"What's happening?"} />
         <MeowButtonContainer>
-          <MeowButton type={'submit'} disabled={postLoading ? true : false}>Meow</MeowButton>
+          {value.length <= 280 ? <CharacterCounter value={value}>{280 - value.length}</CharacterCounter> : <NoMoreCounter>{280 - value.length}</NoMoreCounter>}
+          <MeowButton type={'submit'} disabled={postLoading ? true : false || value.length > 280 ? true : false}>Meow</MeowButton>
         </MeowButtonContainer>
       </ImageTextHolder>
     </TweetBoxDiv>
   );
 };
 
+const NoMoreCounter = styled.div`
+  margin-right: 0.5rem;
+  color: red;
+`;
+
+const CharacterCounter = styled.div`
+  margin-right: 0.5rem;
+  color: ${props => props.value.length > 235 ? '#E1AD01' : 'black'};
+
+  
+`;
+
 const MeowButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const MeowButton = styled.button`
