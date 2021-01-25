@@ -11,8 +11,8 @@ const rotateLoadingIcon = keyframes`
   `;
 const AnimateLoadingIcon = styled.div`
   animation: ${rotateLoadingIcon} 2s infinite;
-  width: 5px;
-  height: 5px;
+  width: 1px;
+  height: 1px;
 `;
 
 function Rotate({children}) {

@@ -31,7 +31,7 @@ function HomeFeed() {
     // add loading spinner here...
     return (
     <Rotate>
-      <FiLoader></FiLoader>
+      <FiLoader/>
     </Rotate>
     )
   }

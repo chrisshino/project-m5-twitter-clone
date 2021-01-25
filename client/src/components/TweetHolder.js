@@ -11,23 +11,18 @@ export function TweetHolder({ tweetId, homeInfo }) {
   const dateInfo = new Date(tweetInfo.timestamp);
   const formattedDate = format(dateInfo, "MMM-do");
   const status = tweetInfo.status;
-  const [isLikedButton, setIsLikedButton] = useState()
-  console.log(tweetInfo)
-  let history = useHistory()
+  const [isLikedButton, setIsLikedButton] = useState();
+  let history = useHistory();
 
-  function tweetInfoOnClick(){
-      history.push(`/tweet/${tweetId}`)
+  const onEnterDownForProfile = (ev) => {
+    if (ev.key == "Enter") {
+      console.log("ahaswerve");
+      tweetInfoOnClick();
     }
-  
-
-  const profileOnClick = (event) => {
-    event.stopPropagation()
-    history.push(`/${tweetInfo.author.handle}`)
-  }
-
+  };
 
   const addHomeLike = (event) => {
-    event.stopPropagation()
+    event.stopPropagation();
     fetch(`/api/tweet/${tweetId}/like`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -35,22 +30,44 @@ export function TweetHolder({ tweetId, homeInfo }) {
     })
       .then((res) => res.json())
       .then(() => {
-        setIsLikedButton(!isLikedButton); 
+        setIsLikedButton(!isLikedButton);
       });
+  };
+
+  const onEnterDownForTweet = (event) => {
+    if (event.key == "Enter") {
+      event.stopPropagation();
+      history.push(`/${tweetInfo.author.handle}`);
+    }
+  };
+
+  function tweetInfoOnClick() {
+    history.push(`/tweet/${tweetId}`);
   }
 
-
+  const profileOnClick = (event) => {
+    event.stopPropagation();
+    history.push(`/${tweetInfo.author.handle}`);
+  };
 
   return (
     <>
-      <TweetContainer tabIndex={0} onClick={(tweetInfoOnClick)}>
+      <TweetContainer
+        tabIndex={0}
+        onClick={tweetInfoOnClick}
+        onKeyDown={onEnterDownForProfile}
+      >
         {tweetInfo.author.handle === "giantcat9" ? (
           <ProfilePic src={url} />
         ) : (
           <ProfilePic src={tweetInfo.author.avatarSrc} />
         )}
         <RightSideContainer>
-          <NameUserDate onClick={profileOnClick}>
+          <NameUserDate
+            onClick={profileOnClick}
+            onKeyDown={onEnterDownForTweet}
+            tabIndex={0}
+          >
             <AvatarName>{tweetInfo.author.displayName}</AvatarName>
             <AvatarUserHandle>@{tweetInfo.author.handle}</AvatarUserHandle>
             <DateComponent>- {formattedDate}</DateComponent>
@@ -64,13 +81,13 @@ export function TweetHolder({ tweetId, homeInfo }) {
             )}
           </UsernameTweetContainer>
           <ReactionBar>
-            <FiMessageCircle />
-            <FiRepeat />
-            <HomeLikeButton onClick={(addHomeLike)}>
+            <FiMessageCircle tabIndex={0} />
+            <FiRepeat tabIndex={0} />
+            <HomeLikeButton onClick={addHomeLike} tabIndex={0}>
               <FiHeart />
               {isLikedButton == true ? <div>1</div> : null}
             </HomeLikeButton>
-            <FiDownload />
+            <FiDownload tabIndex={0} />
           </ReactionBar>
         </RightSideContainer>
       </TweetContainer>
@@ -86,11 +103,11 @@ const StyledLink = styled(Link)`
 const HomeLikeButton = styled.button``;
 
 const RightSideContainer = styled.div`
-width: 100%;
+  width: 100%;
 `;
 
 const ReactionBar = styled.div`
-width: 100%;
+  width: 100%;
   display: flex;
   margin-top: 0.5rem;
   margin-bottom: 0.2rem;
@@ -148,4 +165,7 @@ const ProfilePic = styled.img`
 const NameUserDate = styled.div`
   display: flex;
   margin-bottom: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;

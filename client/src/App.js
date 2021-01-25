@@ -18,15 +18,23 @@ import {
   BrowserRouter
 } from "react-router-dom";
 import Sidebar from './components/Sidebar'
+import ErrorScreen from './components/ErrorScreen'
 
 
 function App() {
-  const {currentUser, status} = useContext(CurrentUserContext)
+  const {currentUser, status, error} = useContext(CurrentUserContext)
+  
+  console.log(error)
 
+  if (error) {
+    return(
+      <ErrorScreen></ErrorScreen>
+    )
+  }
   
   return (
    <BrowserRouter>
-    {status == 'idle' ?
+    {status == 'idle'  ?
     <Main>
       <Sidebar/>
       <Switch>
