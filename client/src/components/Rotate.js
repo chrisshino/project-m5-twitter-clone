@@ -10,7 +10,8 @@ const rotateLoadingIcon = keyframes`
     }
   `;
 const AnimateLoadingIcon = styled.div`
-
+  top: 25%;
+  left: 50%;
   position:absolute;
   animation: ${rotateLoadingIcon} 2s infinite;
   /* width: 1px;
