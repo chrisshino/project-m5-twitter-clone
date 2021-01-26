@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {TweetHolder} from './TweetHolder'
 import {Header} from '../components/Header'
 import {TweetBox} from '../components/TweetBox'
-import {FiLoader} from 'react-icons/fi'
+import Bomb from './Bomb'
 import Rotate from './Rotate'
 
 function HomeFeed() {
@@ -31,7 +31,7 @@ function HomeFeed() {
     // add loading spinner here...
     return (
     <Rotate>
-      <FiLoader/>
+      <Bomb/>
     </Rotate>
     )
   }

@@ -8,6 +8,7 @@ import Profile from './components/Profile'
 import {CurrentUserContext} from './components/CurrentUserContext'
 import {FiLoader} from 'react-icons/fi'
 import Rotate from './components/Rotate'
+import Bomb from './components/Bomb'
 
 // import Sidebar from '.components/Sidebar'
 import {
@@ -23,9 +24,6 @@ import ErrorScreen from './components/ErrorScreen'
 
 function App() {
   const {currentUser, status, error} = useContext(CurrentUserContext)
-  
-  console.log(error)
-
   if (error) {
     return(
       <ErrorScreen></ErrorScreen>
@@ -56,7 +54,7 @@ function App() {
       </Switch>
     </Main> :
     <Rotate>
-      <FiLoader  />
+      <Bomb/>
     </Rotate>
     } 
    </BrowserRouter>

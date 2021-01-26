@@ -3,8 +3,9 @@ import { Header } from "./Header";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-import { FiMessageCircle, FiRepeat, FiHeart, FiDownload, FiLoader } from "react-icons/fi";
-
+import { FiMessageCircle, FiRepeat, FiHeart, FiDownload } from "react-icons/fi";
+import Bomb from "./Bomb";
+import Rotate from './Rotate'
 
 function TweetDetails() {
   const { tweetId } = useParams();
@@ -35,7 +36,7 @@ function TweetDetails() {
   };
 
   if (!uniqueTweet) {
-    return <FiLoader></FiLoader>;
+    return <Rotate><Bomb/></Rotate>;
   }
 
   return (

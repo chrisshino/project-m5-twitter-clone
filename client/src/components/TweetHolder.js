@@ -53,6 +53,7 @@ export function TweetHolder({ tweetId, homeInfo }) {
   return (
     <>
       <TweetContainer
+        aria-label={'view-tweet'}
         tabIndex={0}
         onClick={tweetInfoOnClick}
         onKeyDown={onEnterDownForProfile}
@@ -64,6 +65,7 @@ export function TweetHolder({ tweetId, homeInfo }) {
         )}
         <RightSideContainer>
           <NameUserDate
+            aria-label={'view-profile'}
             onClick={profileOnClick}
             onKeyDown={onEnterDownForTweet}
             tabIndex={0}

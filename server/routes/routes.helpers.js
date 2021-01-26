@@ -3,7 +3,7 @@ const data = require('../data');
 // HARDCODED CURRENT USER.
 const CURRENT_USER_HANDLE = 'treasurymog';
 
-const MAX_DELAY = 2000;
+const MAX_DELAY = 5000;
 const FAILURE_ODDS = 0.05;
 
 // Our server is very lean and quick, given that it doens't actually connect
